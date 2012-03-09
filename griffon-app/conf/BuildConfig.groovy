@@ -22,9 +22,6 @@ griffon.project.dependency.resolution = {
         // flatDir name: "${pluginName}LibDir", dirs: ["${basePath}lib"]
     }
     dependencies {
-        // specify dependencies here under either 'build', 'compile', 'runtime' or 'test' scopes eg.
-
-        // runtime 'mysql:mysql-connector-java:5.1.5'
         compile 'org.mongodb:mongo-java-driver:2.7.2',
                 'com.gmongo:gmongo:0.9.3'
     }

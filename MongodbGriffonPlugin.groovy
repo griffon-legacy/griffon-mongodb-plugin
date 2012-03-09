@@ -21,7 +21,7 @@ class MongodbGriffonPlugin {
     // the plugin version
     String version = '0.1'
     // the version or versions of Griffon the plugin is designed for
-    String griffonVersion = '0.9.5-SNAPSHOT > *'
+    String griffonVersion = '0.9.5 > *'
     // the other plugins this plugin depends on
     Map dependsOn = [:]
     // resources that are included in plugin packaging
@@ -38,7 +38,7 @@ class MongodbGriffonPlugin {
     // URL where documentation can be found
     String documentation = ''
     // URL where source can be found
-    String source = ''
+    String source = 'https://github.com/griffon/griffon-mongodb-plugin'
 
     List authors = [
         [
@@ -48,7 +48,7 @@ class MongodbGriffonPlugin {
     ]
     String title = 'Mongodb support'
     String description = '''
-The Mongodb plugin enables lightweight access to [Mongodb][1] datadatabases.
+The Mongodb plugin enables lightweight access to [Mongodb][1] databases.
 This plugin does NOT provide domain classes nor dynamic finders like GORM does.
 
 Usage
@@ -78,7 +78,7 @@ been configured as 'internal'
 	
 This method is also accessible to any component through the singleton `griffon.plugins.mongodb.MongodbConnector`.
 You can inject these methods to non-artifacts via metaclasses. Simply grab hold of a particular metaclass and call
-`MongodbEnhancer.enhance(metaClassInstance)`.
+`MongodbEnhancer.enhance(metaClassInstance, mongodbProviderInstance)`.
 
 Configuration
 -------------
@@ -135,13 +135,8 @@ It's up to you define how these methods need to be implemented for your tests. F
 fails regardless of the arguments it receives
 
     class MyMongodbProvider implements MongodbProvider {
-        Object withMongodb(String serverName = 'default', Closure closure) {
-            // empty
-        }
-
-        public <T> T withMongodb(String serverName = 'default', CallableWithArgs<T> callable) {
-            // empty
-        }       
+        Object withMongodb(String serverName = 'default', Closure closure) { null }
+        public <T> T withMongodb(String serverName = 'default', CallableWithArgs<T> callable) { null }
     }
     
 This implementation may be used in the following way

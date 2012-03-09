@@ -13,17 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package griffon.plugins.mongodb
 
 import griffon.util.CallableWithArgs
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 /**
  * @author Andres Almiray
  */
 final class MongodbEnhancer {
+    private static final Logger LOG = LoggerFactory.getLogger(MongodbEnhancer)
+
     private MongodbEnhancer() {}
     
     static void enhance(MetaClass mc, MongodbProvider provider = MongodbServerHolder.instance) {
+        if(LOG.debugEnabled) LOG.debug("Enhancing $mc with $provider")
         mc.withMongodb = {Closure closure ->
             provider.withMongodb('default', closure)
         }

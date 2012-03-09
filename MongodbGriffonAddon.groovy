@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import griffon.core.GriffonClass
 import griffon.core.GriffonApplication
 import griffon.plugins.mongodb.MongodbConnector
 import griffon.plugins.mongodb.MongodbEnhancer
@@ -27,16 +28,19 @@ class MongodbGriffonAddon {
         MongodbConnector.instance.connect(app, config)
     }
 
+    void addonPostInit(GriffonApplication app) {
+        def types = app.config.griffon?.mongodb?.injectInto ?: ['controller']
+        for(String type : types) {
+            for(GriffonClass gc : app.artifactManager.getClassesOfType(type)) {
+                MongodbEnhancer.enhance(gc.metaClass)
+            }
+        }
+    }
+
     def events = [
         ShutdownStart: { app ->
             ConfigObject config = MongodbConnector.instance.createConfig(app)
             MongodbConnector.instance.disconnect(app, config)
-        },
-        NewInstance: { klass, type, instance ->
-            def types = app.config.griffon?.mongodb?.injectInto ?: ['controller']
-            if(!types.contains(type)) return
-            def mc = app.artifactManager.findGriffonClass(klass).metaClass
-            MongodbEnhancer.enhance(mc)
         }
     ]
 }

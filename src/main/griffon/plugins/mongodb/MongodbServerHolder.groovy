@@ -48,7 +48,7 @@ class MongodbServerHolder implements MongodbProvider {
 
     void setServer(String serverName = 'default', GMongo server) {
         if(isBlank(serverName)) serverName = 'default'
-        serverServer(serverName, server)       
+        storeServer(serverName, server)
     }
 
     Object withMongodb(String serverName = 'default', Closure closure) {
@@ -71,7 +71,7 @@ class MongodbServerHolder implements MongodbProvider {
     
     void disconnectServer(String serverName) {
         if(isBlank(serverName)) serverName = 'default'
-        serverServer(serverName, null)        
+        storeServer(serverName, null)
     }
 
     private GMongo fetchServer(String serverName) {
@@ -95,7 +95,7 @@ class MongodbServerHolder implements MongodbProvider {
         }
     }
 
-    private void serverServer(String serverName, GMongo server) {
+    private void storeServer(String serverName, GMongo server) {
         synchronized(LOCK) {
             servers[serverName] = server
         }
