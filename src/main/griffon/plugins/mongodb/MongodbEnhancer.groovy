@@ -27,7 +27,7 @@ final class MongodbEnhancer {
     private static final Logger LOG = LoggerFactory.getLogger(MongodbEnhancer)
 
     private MongodbEnhancer() {}
-    
+
     static void enhance(MetaClass mc, MongodbProvider provider = MongodbServerHolder.instance) {
         if(LOG.debugEnabled) LOG.debug("Enhancing $mc with $provider")
         mc.withMongodb = {Closure closure ->

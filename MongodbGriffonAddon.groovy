@@ -37,7 +37,7 @@ class MongodbGriffonAddon {
         }
     }
 
-    def events = [
+    Map events = [
         ShutdownStart: { app ->
             ConfigObject config = MongodbConnector.instance.createConfig(app)
             MongodbConnector.instance.disconnect(app, config)

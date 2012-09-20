@@ -22,6 +22,7 @@ import griffon.core.GriffonApplication
 import griffon.util.Environment
 import griffon.util.Metadata
 import griffon.util.CallableWithArgs
+import griffon.util.ConfigUtils
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -46,8 +47,7 @@ final class MongodbConnector implements MongodbProvider {
     // ======================================================
 
     ConfigObject createConfig(GriffonApplication app) {
-        def serverClass = app.class.classLoader.loadClass('MongodbConfig')
-        new ConfigSlurper(Environment.current.name).parse(serverClass)
+        ConfigUtils.loadConfigWithI18n('MongodbConfig')
     }
 
     private ConfigObject narrowConfig(ConfigObject config, String serverName) {
@@ -85,7 +85,7 @@ final class MongodbConnector implements MongodbProvider {
     private GMongo startMongodb(ConfigObject config) {
         String host  = config.host ?: 'localhost'
         int port     = config.port ?: 27017i
-        
+
         new GMongo(host, port)
     }
 

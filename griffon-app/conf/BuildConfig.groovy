@@ -22,8 +22,8 @@ griffon.project.dependency.resolution = {
         // flatDir name: "${pluginName}LibDir", dirs: ["${basePath}lib"]
     }
     dependencies {
-        compile 'org.mongodb:mongo-java-driver:2.7.2',
-                'com.gmongo:gmongo:0.9.3'
+        compile 'org.mongodb:mongo-java-driver:2.8.0',
+                'com.gmongo:gmongo:0.9.5'
     }
 }
 

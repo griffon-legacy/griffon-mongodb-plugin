@@ -35,7 +35,7 @@ class MongodbServerHolder implements MongodbProvider {
     private static final Logger LOG = LoggerFactory.getLogger(MongodbServerHolder)
     private static final Object[] LOCK = new Object[0]
     private final Map<String, GMongo> servers = [:]
-  
+
     String[] getServerNames() {
         List<String> serverNames = new ArrayList().addAll(servers.keySet())
         serverNames.toArray(new String[serverNames.size()])
@@ -82,7 +82,7 @@ class MongodbServerHolder implements MongodbProvider {
             ConfigObject config = MongodbConnector.instance.createConfig(app)
             server = MongodbConnector.instance.connect(app, config, serverName)
         }
-        
+
         if(server == null) {
             throw new IllegalArgumentException("No such mongodb server configuration for name $serverName")
         }
